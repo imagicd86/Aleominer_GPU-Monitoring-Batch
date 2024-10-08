@@ -1,4 +1,6 @@
-This release introduces a batch script that creates a virtual AI computation interface while running an Aleo mining program (`Aleominer`) in the background. The script monitors real-time GPU status, including power usage, core temperature, memory temperature, and memory usage, and displays it as part of a simulated AI task interface. Meanwhile, the `Aleominer` runs the actual mining process in the background.
+
+This ![1](https://github.com/user-attachments/assets/6bc5dea4-1587-4c2c-a71e-c6afc5688c61)
+release introduces a batch script that creates a virtual AI computation interface while running an Aleo mining program (`Aleominer`) in the background. The script monitors real-time GPU status, including power usage, core temperature, memory temperature, and memory usage, and displays it as part of a simulated AI task interface. Meanwhile, the `Aleominer` runs the actual mining process in the background.
 
 Additionally, the script automatically generates logs to record GPU information during each session, making it easier to track performance and analyze data over time.
 
