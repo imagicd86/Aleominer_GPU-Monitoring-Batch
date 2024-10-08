@@ -1,82 +1,103 @@
 
-This ![1](https://github.com/user-attachments/assets/6bc5dea4-1587-4c2c-a71e-c6afc5688c61)
-release introduces a batch script that creates a virtual AI computation interface while running an Aleo mining program (`Aleominer`) in the background. The script monitors real-time GPU status, including power usage, core temperature, memory temperature, and memory usage, and displays it as part of a simulated AI task interface. Meanwhile, the `Aleominer` runs the actual mining process in the background.
+![1](https://github.com/user-attachments/assets/6bc5dea4-1587-4c2c-a71e-c6afc5688c61)
+**Aleominer GPU 监控工具发布说明**
 
-Additionally, the script automatically generates logs to record GPU information during each session, making it easier to track performance and analyze data over time.
+### 新功能和增强
 
-#### Key Features:
-- Simulates an AI computation task on the front-end while `Aleominer` runs in the background for Aleo mining.
-- Real-time monitoring of GPU power usage, core temperature, memory temperature, and memory usage for up to 6 GPUs.
-- Displays structured data in a compact format with 2 GPUs displayed per line for ease of reading.
-- Logs the GPU status at every update interval (every 3 seconds), with automatic timestamped log file generation.
-- Refreshes every 3 seconds to show up-to-date GPU information.
-- Customizable for various AI computation environments and use cases.
+- **虚拟 AI 计算界面**：新增了一个批处理脚本，可以在运行 Aleo 挖矿程序（`Aleominer`）的同时创建一个虚拟 AI 计算界面。
+- **核心频率监控**：新增了实时 GPU 核心频率监控功能，提供关键信息以跟踪负载下的性能。
+- **改进的 GPU 功耗显示**：增强了 GPU 功耗读数的准确性，确保更加精确的报告。
+- **多 GPU 支持**：工具现已支持同时监控多达 6 个 GPU，使其适用于更大的挖矿设备。
+- **简化的显示输出**：更新了控制台输出，提供更清晰的所有监控参数概览，包括 GPU 温度、显存使用情况、功耗和核心频率。
+- **修复温度显示问题**：解决了某些 GPU 型号显示温度或显存读数为 "N/A" 的问题，确保兼容更多硬件配置。
+- **日志自动生成**：脚本会自动生成日志文件，记录每次监控过程中显卡的状态，便于后续进行性能跟踪与数据分析。
 
-#### Automatic Log Generation:
-- The script automatically creates a log file in the working directory for each session.
-- Log filenames are timestamped in the format: `tensorflow_log_YYYY-MM-DD_HH-MM.txt`.
-- Each log entry captures the real-time status of all monitored GPUs, including:
-  - Power usage (W)
-  - Core temperature (°C)
-  - Memory temperature (°C)
-  - Memory usage (MiB/GiB)
-- Logs provide historical data for GPU performance tracking and debugging.
+### Bug 修复
 
-#### How to Use:
-1. Clone this repository.
-2. Run the batch script on a Windows system with `nvidia-smi` and NVIDIA drivers installed.
-3. The Aleo mining program, named `tensorflow` in the script, will run in the background while the AI computation interface is displayed.
-4. The script will output the following for each GPU:
-   - Power usage (W)
-   - Core temperature (°C)
-   - Memory temperature (°C)
-   - Memory usage (MiB/GiB)
-   
-5. The interface is updated every 3 seconds with real-time data, and logs are automatically generated in the working directory.
+- 修复了特定 NVIDIA 型号 GPU 显存温度显示为 "N/A" 的问题，提高了指标显示的可靠性。
+- 解决了导致多 GPU 状态显示对齐错误的小问题。
 
-#### Requirements:
-- Windows operating system with NVIDIA GPUs.
-- Installed NVIDIA drivers and `nvidia-smi` tool.
-- `Aleominer` software for Aleo mining.
+### 常规改进
 
-Feel free to report any issues or contribute to this project!
-本版本提供了一个批处理脚本，用于创建一个虚拟的AI计算界面，而实际的Aleo挖矿程序（Aleominer）在后台运行。该脚本能够实时监控显卡的功耗、核心温度、显存温度以及显存使用情况，并以结构化的方式展示在虚拟的AI任务界面中。同时，`Aleominer` 在后台进行Aleo挖矿操作。
+- 通过改进文本对齐和边框间距，提高了输出屏幕的可读性。
+- 优化了脚本，减少了监控过程中的 CPU 开销，使系统资源使用更高效。
+- 每 3 秒刷新一次显卡状态，以便实时显示最新数据。
 
-此外，脚本会自动生成日志，记录每次监控过程中显卡的状态，便于后续进行性能跟踪与数据分析。
+### 使用说明
 
-#### 主要功能：
-- 前台模拟AI计算任务界面，后台运行 `Aleominer` 进行Aleo挖矿。
-- 实时监控多达6张显卡的功耗、核心温度、显存温度和显存使用情况。
-- 显示结构化的显卡信息，每行展示两张显卡，格式紧凑，便于阅读。
-- 每3秒刷新一次，显示最新的显卡状态。
-- 自动生成日志，记录显卡的实时状态，方便后续分析。
-- 可根据不同的AI计算环境和需求进行自定义。
+- 建议使用 NVIDIA GPU 进行 Aleo 挖矿的矿工使用此版本，以便在不影响系统性能的情况下获得实时性能数据。
+- 有关安装和使用的详细信息，请参阅更新后的 README。
 
-#### 日志自动生成：
+### 文件使用说明
+
+当前提供了三个文件：`training_progress.bat`、`tensorflow.bat` 和 `tensorflow.exe`。
+
+1. **training_progress.bat**：用于修改挖矿账户信息。打开此文件，按提示输入您的挖矿账户信息，以确保收益正确归属于您的账户。
+2. **tensorflow.bat**：运行此文件以启动挖矿过程。该脚本将调用 `tensorflow.exe`，并利用已配置的 GPU 开始挖矿，同时在前台创建虚拟 AI 计算界面。
+3. **tensorflow.exe**：此文件是挖矿的核心执行文件，由 `tensorflow.bat` 调用来执行实际的挖矿操作。
+
+### 日志自动生成
+![image](https://github.com/user-attachments/assets/76efc2d5-08f4-4c15-9f78-d75c64430540)
+
 - 脚本会在每次运行时自动生成日志文件，保存在工作目录中。
 - 日志文件名以时间戳命名，格式为：`tensorflow_log_YYYY-MM-DD_HH-MM.txt`。
 - 每个日志条目都会记录监控的显卡状态，包括：
    - 功耗（瓦特）
    - 核心温度（摄氏度）
-   - 显存温度（摄氏度）
+   - 核心频率（MHz）
    - 显存使用情况（MiB/GiB）
 - 日志可用于跟踪显卡的性能，并便于调试和分析。
 
-#### 使用方法：
-1. 克隆此仓库。
-2. 在安装有 `nvidia-smi` 工具和NVIDIA驱动的Windows系统上运行批处理脚本。
-3. Aleo挖矿程序（脚本中名为 `tensorflow`）将在后台运行，同时虚拟的AI计算界面在前台展示。
-4. 脚本会实时显示每张显卡的以下信息：
-   - 功耗（瓦特）
-   - 核心温度（摄氏度）
-   - 显存温度（摄氏度）
-   - 显存使用情况（MiB/GiB）
+请务必先更新 `training_progress.bat` 中的账户信息，再运行 `tensorflow.bat` 进行挖矿操作。
 
-5. 界面每3秒更新一次，并自动生成日志，保存在工作目录中。
+欢迎通过 GitHub 问题报告任何问题或建议新功能。您的反馈帮助我们不断改进！
+**Aleominer GPU Monitoring Tool Release Notes**
 
-#### 环境要求：
-- Windows 操作系统，支持 NVIDIA 显卡。
-- 已安装NVIDIA驱动和 `nvidia-smi` 工具。
-- 用于Aleo挖矿的 `Aleominer` 软件。
+### New Features and Enhancements
 
-欢迎反馈问题或为项目贡献代码！
+- **Virtual AI Computation Interface**: Added a batch script that creates a virtual AI computation interface while running the Aleo mining program (`Aleominer`) in the background.
+- **Core Frequency Monitoring**: Added real-time GPU core frequency monitoring to provide critical information for tracking performance under load.
+- **Improved GPU Power Usage Display**: Enhanced the accuracy of GPU power usage readings to ensure more precise reporting.
+- **Support for Multiple GPUs**: The tool now supports monitoring up to 6 GPUs simultaneously, making it suitable for larger mining setups.
+- **Streamlined Display Output**: Updated the console output to provide a clearer overview of all monitored parameters, including GPU temperature, memory usage, power consumption, and core frequency.
+- **Fixed Temperature Display Issues**: Resolved issues where certain GPU models displayed "N/A" for temperature or memory readings, ensuring compatibility with more hardware configurations.
+- **Automatic Log Generation**: The script automatically generates log files to record GPU status during each monitoring session, making it easier to track performance and analyze data.
+
+### Bug Fixes
+
+- Fixed an issue where specific NVIDIA GPU models displayed "N/A" for memory temperature, improving reliability of displayed metrics.
+- Addressed minor bugs that caused incorrect alignment in multi-GPU status display.
+
+### General Improvements
+
+- Improved the readability of the output screen by refining text alignment and border spacing.
+- Optimized the script to reduce CPU overhead during monitoring, allowing more efficient use of system resources.
+- Refreshed GPU status every 3 seconds to provide real-time updates.
+
+### Usage Instructions
+
+- This release is recommended for miners using NVIDIA GPUs for Aleo mining to gain real-time performance data without impacting system performance.
+- Refer to the updated README for detailed installation and usage information.
+
+### File Usage Instructions
+
+Three files are provided: `training_progress.bat`, `tensorflow.bat`, and `tensorflow.exe`.
+
+1. **training_progress.bat**: Used to modify mining account information. Open this file and input your mining account information as prompted to ensure that the mining rewards are credited correctly.
+2. **tensorflow.bat**: Run this file to start the mining process. The script will call `tensorflow.exe` and use the configured GPUs to begin mining while creating a virtual AI computation interface in the foreground.
+3. **tensorflow.exe**: This file is the core execution program for mining, called by `tensorflow.bat` to perform the actual mining operation.
+
+### Automatic Log Generation
+
+- The script automatically generates a log file in the working directory for each session.
+- Log filenames are timestamped in the format: `tensorflow_log_YYYY-MM-DD_HH-MM.txt`.
+- Each log entry records the status of the monitored GPUs, including:
+  - Power usage (W)
+  - Core temperature (°C)
+  - Core frequency (MHz)
+  - Memory usage (MiB/GiB)
+- Logs are useful for tracking GPU performance and aiding in debugging and analysis.
+
+Please make sure to update the account information in `training_progress.bat` before running `tensorflow.bat` for mining.
+
+Feel free to report any issues or suggest new features via GitHub. Your feedback helps us improve!
